@@ -1,7 +1,9 @@
 package com.yu.admin.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.yu.admin.common.convention.exception.ClientException;
 import com.yu.admin.common.convention.exception.ServiceException;
 import com.yu.admin.common.enums.UserErrorCodeEnum;
 import com.yu.admin.dao.entity.UserDO;
@@ -14,16 +16,22 @@ import com.yu.admin.dto.resp.UserRespDTO;
 import com.yu.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RBloomFilter;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import static com.yu.admin.common.constant.RedisCacheConstant.LOCK_USER_REGISTER_KEY;
+import static com.yu.admin.common.enums.UserErrorCodeEnum.USER_SAVE_ERROR;
+
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements UserService {
 
 	private final RBloomFilter<String> userRegisterCachePenetrationBloomFilter;
+
+	private final RedissonClient redissonClient;
 
 	/**
 	 * 根据用户名查询用户信息
@@ -61,7 +69,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 	 */
 	@Override
 	public void register(UserRegisterReqDTO requestParam) {
+		if (hasUsername(requestParam.getUsername())) {
+			throw new ServiceException(UserErrorCodeEnum.USER_NAME_EXIST);
+		}
 
+		RLock lock = redissonClient.getLock(LOCK_USER_REGISTER_KEY + requestParam.getUsername());
+		try {
+			if (lock.tryLock()) {
+				UserDO userDO = BeanUtil.toBean(requestParam, UserDO.class);
+				boolean save = this.save(userDO);
+				if (!save) {
+					throw new ClientException(USER_SAVE_ERROR);
+				}
+
+				userRegisterCachePenetrationBloomFilter.add(requestParam.getUsername());
+			}
+		} finally {
+			lock.unlock();
+		}
 	}
 
 	/**
