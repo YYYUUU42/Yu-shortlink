@@ -1,5 +1,3 @@
-
-
 package com.yu.admin.common.convention.exception;
 
 import com.yu.admin.common.convention.errorcode.BaseErrorCode;
@@ -7,7 +5,6 @@ import com.yu.admin.common.convention.errorcode.IErrorCode;
 
 /**
  * 客户端异常
-
  */
 public class ClientException extends AbstractException {
 

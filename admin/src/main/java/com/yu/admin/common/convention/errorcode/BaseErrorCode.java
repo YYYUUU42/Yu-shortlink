@@ -1,10 +1,7 @@
-
-
 package com.yu.admin.common.convention.errorcode;
 
 /**
  * 基础错误码定义
-
  */
 public enum BaseErrorCode implements IErrorCode {
 

@@ -1,5 +1,3 @@
-
-
 package com.yu.admin.common.serialize;
 
 import cn.hutool.core.util.DesensitizedUtil;
@@ -11,7 +9,6 @@ import java.io.IOException;
 
 /**
  * 手机号脱敏反序列化
-
  */
 public class PhoneDesensitizationSerializer extends JsonSerializer<String> {
 

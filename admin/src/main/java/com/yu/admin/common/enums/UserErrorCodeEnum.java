@@ -1,12 +1,9 @@
-
-
 package com.yu.admin.common.enums;
 
 import com.yu.admin.common.convention.errorcode.IErrorCode;
 
 /**
  * 用户错误码
-
  */
 public enum UserErrorCodeEnum implements IErrorCode {
 

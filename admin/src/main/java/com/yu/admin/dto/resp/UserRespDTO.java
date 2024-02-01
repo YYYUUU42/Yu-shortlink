@@ -1,5 +1,3 @@
-
-
 package com.yu.admin.dto.resp;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

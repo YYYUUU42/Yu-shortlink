@@ -1,5 +1,3 @@
-
-
 package com.yu.admin.dto.resp;
 
 import lombok.AllArgsConstructor;
@@ -8,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * 用户登录接口返回响应
-
  */
 @Data
 @NoArgsConstructor

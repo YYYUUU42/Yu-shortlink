@@ -1,5 +1,3 @@
-
-
 package com.yu.admin.common.database;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
@@ -10,7 +8,6 @@ import java.util.Date;
 
 /**
  * 数据库持久层对象基础属性
-
  */
 @Data
 public class BaseDO {

@@ -1,5 +1,3 @@
-
-
 package com.yu.admin.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -11,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * 短链接分组实体
-
  */
 @Data
 @TableName("t_group")

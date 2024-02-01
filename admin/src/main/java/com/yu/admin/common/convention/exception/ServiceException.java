@@ -1,5 +1,3 @@
-
-
 package com.yu.admin.common.convention.exception;
 
 import com.yu.admin.common.convention.errorcode.BaseErrorCode;
@@ -9,7 +7,6 @@ import java.util.Optional;
 
 /**
  * 服务端异常
-
  */
 public class ServiceException extends AbstractException {
 

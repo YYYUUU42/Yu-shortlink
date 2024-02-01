@@ -1,5 +1,3 @@
-
-
 package com.yu.admin.common.convention.result;
 
 

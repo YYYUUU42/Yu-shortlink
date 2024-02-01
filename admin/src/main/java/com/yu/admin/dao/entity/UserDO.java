@@ -1,5 +1,3 @@
-
-
 package com.yu.admin.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -8,7 +6,6 @@ import lombok.Data;
 
 /**
  * 用户持久层实体
-
  */
 @Data
 @TableName("t_user")

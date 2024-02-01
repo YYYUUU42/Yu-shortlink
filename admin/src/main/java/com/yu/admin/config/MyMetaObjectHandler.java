@@ -1,5 +1,3 @@
-
-
 package com.yu.admin.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;

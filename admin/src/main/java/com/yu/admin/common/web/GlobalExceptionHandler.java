@@ -1,5 +1,3 @@
-
-
 package com.yu.admin.common.web;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -23,7 +21,6 @@ import java.util.Optional;
 
 /**
  * 全局异常处理器
-
  */
 @Component
 @Slf4j

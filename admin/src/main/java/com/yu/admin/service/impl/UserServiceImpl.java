@@ -12,11 +12,19 @@ import com.yu.admin.dto.req.UserUpdateReqDTO;
 import com.yu.admin.dto.resp.UserLoginRespDTO;
 import com.yu.admin.dto.resp.UserRespDTO;
 import com.yu.admin.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.redisson.api.RBloomFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements UserService {
+
+	private final RBloomFilter<String> userRegisterCachePenetrationBloomFilter;
+
 	/**
 	 * 根据用户名查询用户信息
 	 *

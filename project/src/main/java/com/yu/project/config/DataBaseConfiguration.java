@@ -1,5 +1,3 @@
-
-
 package com.yu.project.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
