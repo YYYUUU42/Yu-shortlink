@@ -10,9 +10,8 @@ import com.yu.admin.dto.resp.UserActualRespDTO;
 import com.yu.admin.dto.resp.UserLoginRespDTO;
 import com.yu.admin.dto.resp.UserRespDTO;
 import com.yu.admin.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
 
 /**
  * @author yu
@@ -20,10 +19,10 @@ import javax.annotation.Resource;
  * @date 2024-02-01
  */
 @RestController
+@RequiredArgsConstructor
 public class UserController {
 
-	@Resource
-	private UserService userService;
+	private final UserService userService;
 
 
 	/**
