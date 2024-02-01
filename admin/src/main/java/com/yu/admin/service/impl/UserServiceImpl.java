@@ -1,6 +1,9 @@
 package com.yu.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.yu.admin.common.convention.exception.ServiceException;
+import com.yu.admin.common.enums.UserErrorCodeEnum;
 import com.yu.admin.dao.entity.UserDO;
 import com.yu.admin.dao.mapper.UserMapper;
 import com.yu.admin.dto.req.UserLoginReqDTO;
@@ -9,6 +12,7 @@ import com.yu.admin.dto.req.UserUpdateReqDTO;
 import com.yu.admin.dto.resp.UserLoginRespDTO;
 import com.yu.admin.dto.resp.UserRespDTO;
 import com.yu.admin.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,7 +25,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 	 */
 	@Override
 	public UserRespDTO getUserByUsername(String username) {
-		return null;
+		UserDO userDO = this.getOne(new LambdaQueryWrapper<UserDO>().eq(UserDO::getUsername, username));
+		if (userDO == null) {
+			throw new ServiceException(UserErrorCodeEnum.USER_NULL);
+		}
+
+		UserRespDTO result = new UserRespDTO();
+		BeanUtils.copyProperties(userDO, result);
+		return result;
 	}
 
 	/**
