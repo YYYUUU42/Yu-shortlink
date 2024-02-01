@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * 用户操作流量风控配置文件
-
  */
 @Data
 @Component
