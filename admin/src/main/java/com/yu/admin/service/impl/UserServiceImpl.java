@@ -96,7 +96,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 	 */
 	@Override
 	public void update(UserUpdateReqDTO requestParam) {
-
+		//从 request 中得到请求头中的token，判断用户信息是否匹配
+		LambdaQueryWrapper<UserDO> queryWrapper = new LambdaQueryWrapper<UserDO>().eq(UserDO::getUsername, requestParam.getUsername());
+		this.update(BeanUtil.toBean(requestParam, UserDO.class), queryWrapper);
 	}
 
 	/**
