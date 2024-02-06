@@ -1,15 +1,19 @@
 package com.yu.project.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.text.StrBuilder;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yu.project.common.convention.exception.ServiceException;
 import com.yu.project.dao.entity.ShortLinkDO;
 import com.yu.project.dao.entity.ShortLinkGotoDO;
 import com.yu.project.dao.mapper.ShortLinkMapper;
 import com.yu.project.dto.req.ShortLinkCreateReqDTO;
+import com.yu.project.dto.req.ShortLinkPageReqDTO;
 import com.yu.project.dto.resp.ShortLinkCreateRespDTO;
+import com.yu.project.dto.resp.ShortLinkPageRespDTO;
 import com.yu.project.service.ShortLinkService;
 import com.yu.project.toolkit.HashUtil;
 import lombok.RequiredArgsConstructor;
@@ -82,6 +86,22 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
 				.originUrl(requestParam.getOriginUrl())
 				.gid(requestParam.getGid())
 				.build();
+	}
+
+	/**
+	 * 分页查询短链接
+	 *
+	 * @param requestParam 分页查询短链接请求参数
+	 * @return 短链接分页返回结果
+	 */
+	@Override
+	public IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam) {
+		IPage<ShortLinkDO> resultPage = baseMapper.pageLink(requestParam);
+		return resultPage.convert(each -> {
+			ShortLinkPageRespDTO result = BeanUtil.toBean(each, ShortLinkPageRespDTO.class);
+			result.setDomain("http://" + result.getDomain());
+			return result;
+		});
 	}
 
 
