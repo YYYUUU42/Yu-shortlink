@@ -1,4 +1,3 @@
-
 package com.yu.project.common.constant;
 
 /**
